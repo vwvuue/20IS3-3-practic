@@ -1,0 +1,244 @@
+USE [master]
+GO
+/****** Object:  Database [Online_shop]    Script Date: 17.02.2023 11:58:04 ******/
+CREATE DATABASE [Online_shop]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Online_shop', FILENAME = N'C:\Users\user\Online_shop.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Online_shop_log', FILENAME = N'C:\Users\user\Online_shop_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [Online_shop] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Online_shop].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Online_shop] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Online_shop] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Online_shop] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Online_shop] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Online_shop] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Online_shop] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [Online_shop] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Online_shop] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Online_shop] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Online_shop] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Online_shop] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Online_shop] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Online_shop] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Online_shop] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Online_shop] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [Online_shop] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Online_shop] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Online_shop] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Online_shop] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Online_shop] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Online_shop] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Online_shop] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Online_shop] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Online_shop] SET  MULTI_USER 
+GO
+ALTER DATABASE [Online_shop] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Online_shop] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Online_shop] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Online_shop] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Online_shop] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Online_shop] SET QUERY_STORE = OFF
+GO
+USE [Online_shop]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+USE [Online_shop]
+GO
+/****** Object:  Table [dbo].[Carts]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cart](
+	[prod_id] [int] NOT NULL,
+	[prod_count] [int] NOT NULL,
+	[user_id] [int] NOT NULL,
+	[cart_id] [int] NOT NULL,
+	[is_deleted] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[cart_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Categories]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product_category](
+	[category_id] [int] NOT NULL,
+	[prod_category_name] [nvarchar](50) NULL,
+	[id_specification] [int] NOT NULL,
+	[is_deleted] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[category_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Orders]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Order](
+	[order_id] [int] NOT NULL,
+	[user_id] [int] NOT NULL,
+	[prod_id] [int] NOT NULL,
+	[status_id] [int] NOT NULL,
+	[order_date] [date] NOT NULL,
+	[prod_count] [int] NOT NULL,
+	[is_deleted] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[order_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Orders_Status]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Status](
+	[status_id] [int] NOT NULL,
+	[Orders_status] [bit] NOT NULL,
+	[Is_deleted] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[status_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Products]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product](
+	[prod_id] [int] NOT NULL,
+	[prod_name] [nvarchar](100) NOT NULL,
+	[prod_price] [decimal](18, 10) NULL,
+	[Prod_count] [int] NULL,
+	[category_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[prod_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Spec_products]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Spec_for_products](
+	[spec_id] [int] NOT NULL,
+	[prod_id] [int] NOT NULL,
+	[spec_product_id] [int] NOT NULL,
+	[value] [int] NOT NULL,
+	[is_deleted] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[spec_product_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Specifications]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Specification](
+	[spec_id] [int] NOT NULL,
+	[spec_name] [nvarchar](50) NULL,
+	[value] [int] NOT NULL,
+	[is_deleted] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[spec_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User](
+	[user_id] [int] NOT NULL,
+	[login] [nvarchar](40) NOT NULL,
+	[phone_number] [nvarchar](40) NOT NULL,
+	[email] [nvarchar] NOT NULL,
+	[addres] [nvarchar] NOT NULL,
+	[role_id] [int] NOT NULL,
+	[is_deleted] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[user_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users_roles]    Script Date: 17.02.2023 11:58:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User_role](
+	[role_id] [int] NOT NULL,
+	[role_name] [nvarchar](40) NOT NULL,
+	[is_deleted] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[role_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+USE [master]
+GO
+ALTER DATABASE [Online_shop] SET  READ_WRITE 
+GO
