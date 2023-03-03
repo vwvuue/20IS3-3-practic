@@ -1,6 +1,5 @@
 # 20IS3-3-practic
-<h1 align="left">Hi there, I'm <a href="https://daniilshat.ru/" target="_blank">Vika</a> 
-<img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
+# <h1 align="left">Hi there, I'm <a href="https://daniilshat.ru/" target="_blank">Vika</a> <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
 ![RemoveAt(14)_Error(more_than_count)](https://user-images.githubusercontent.com/125024527/219578500-39f1603d-bf07-4f93-a443-3b43f106d24d.jpg)
 ![RemoveAt(10)_Succes](https://user-images.githubusercontent.com/125024527/219578510-9cb462e4-20e9-44e1-a4fc-c9dcf4aea86f.jpg)
 ![Update(14, SuperCool)_Error(more_than_count)](https://user-images.githubusercontent.com/125024527/219578516-ef00edb0-271c-4bf4-9c11-0c85665dfc7d.jpg)
